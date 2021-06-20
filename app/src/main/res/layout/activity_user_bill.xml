@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.UserBillActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:title="Read your Consumption"
+            >
+
+            <ImageView
+                android:id="@+id/iv_bill_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bill_history"
+                android:layout_gravity="end"
+                android:layout_marginEnd="15dp"/>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/tv_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/please_scan_the_top_digital_number_or_fill_the_current_consumption_manually"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+
+
+    <EditText
+        android:id="@+id/et_current_consumption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/current_consumption_000000_kw"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/tv_current_cost"
+        app:layout_constraintEnd_toEndOf="@+id/tv_"
+        app:layout_constraintStart_toStartOf="@+id/tv_" />
+
+
+    <TextView
+        android:id="@+id/tv_current_cost"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Current Cost: 0 L.L"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_current_consumption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+
+
+    <Button
+        android:id="@+id/btn_scan_e_meter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:onClick="scan"
+        android:text="Scan your E meter"
+        app:layout_constraintBottom_toTopOf="@+id/btn_calculate" />
+
+    <Button
+        android:id="@+id/btn_calculate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="calculate"
+        android:text="Calculate"
+        android:layout_marginBottom="10dp"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_scan_e_meter"
+        app:layout_constraintStart_toStartOf="@+id/btn_scan_e_meter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

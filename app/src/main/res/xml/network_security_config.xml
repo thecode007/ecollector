@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">mt2-qa.apps2you.org</domain>
+        <domain includeSubdomains="true">api.pretty-app.com</domain>
+        <domain includeSubdomains="true">pretty-api.apps2you.org</domain>
+        <domain includeSubdomains="true">192.168.69.191</domain>
+        <domain includeSubdomains="true">core1.apps2you.org</domain>
+        <domain includeSubdomains="true">api.openweathermap.org</domain>
+        <domain includeSubdomains="true">openweathermap.org</domain>
+        <domain includeSubdomains="true">pretty-cms.apps2you.org</domain>
+        <domain includeSubdomains="true">web2-aws.apps2you.org</domain>
+        <domain includeSubdomains="true">web4-aws.apps2you.org</domain>
+        <domain includeSubdomains="true">pretty-temp-api.apps2you.org</domain>
+        <domain includeSubdomains="true">35.174.155.97</domain>
+
+    </domain-config>
+</network-security-config>

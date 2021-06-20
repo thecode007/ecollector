@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="external-files-path" path="./storage/emulated/0/"/>
+    <external-path name="external-files" path="."/>
+    <!--<external-files-path name="myexternalfiles" path="/file:/storage/emulated/0/DCIM/............." />-->
+
+</paths>

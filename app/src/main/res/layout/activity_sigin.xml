@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SignActivity"
+    android:padding="15dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/splash"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fill_the_fields_to_sign_in"
+        android:layout_marginBottom="25dp"
+        android:textSize="18sp"/>
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/username"
+        />
+
+    <TextView
+        android:id="@+id/tv_name_error"
+        android:textSize="10sp"
+        android:text="@string/this_field_is_required"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        />
+
+    <TextView
+        android:id="@+id/tv_password_error"
+        android:textSize="10sp"
+        android:text="@string/this_field_is_required"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:textColor="@android:color/holo_red_dark"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:enabled="false"
+        android:text="@string/sign_in"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
