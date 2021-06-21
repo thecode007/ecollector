@@ -70,9 +70,8 @@ open class CollectorActivity : AppCompatActivity(), View.OnFocusChangeListener, 
                     permissions: List<PermissionRequest>,
                     token: PermissionToken
                 ) {
-                    token.cancelPermissionRequest()
+                    token.continuePermissionRequest()
                 }
-
 
             }).check()
         if (Build.VERSION.SDK_INT >= 24) {

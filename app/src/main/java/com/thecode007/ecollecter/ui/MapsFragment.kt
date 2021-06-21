@@ -1,6 +1,7 @@
 package com.thecode007.ecollecter.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -27,6 +28,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import com.thecode007.ecollecter.R
 import com.thecode007.ecollecter.network.APIEndPoint
@@ -73,6 +79,9 @@ class MapsFragment : Fragment(), DialogInterface.OnClickListener {
 
     fun onMap() {
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -81,28 +90,56 @@ class MapsFragment : Fragment(), DialogInterface.OnClickListener {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
+            Dexter.withContext(requireContext())
+                .withPermissions(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ).withListener(object : MultiplePermissionsListener {
+                    @SuppressLint("MissingPermission")
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        if (report.deniedPermissionResponses.size > 0) {
+                            activity!!.onBackPressed()
+                        }
+                        else {
+                            fusedLocationClient!!.lastLocation
+                                .addOnSuccessListener(requireActivity()) { location ->
+                                    if (location != null) {
+                                        val lat = LatLng(location.latitude, location.longitude)
+                                        if (myLocation != null) {
+                                            myLocation!!.remove()
+                                        }
+                                        myLocation = map!!.addMarker(MarkerOptions().position(lat).icon(
+                                            BitmapDescriptorFactory.fromResource(R.drawable.marker_user)))
+                                        map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 5f))
+                                    }
+                                }
+                        }
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permissions: List<PermissionRequest>,
+                        token: PermissionToken
+                    ) {
+                        token.continuePermissionRequest()
+                    }
+
+                }).check()
+
+        }else {
+            fusedLocationClient!!.lastLocation
+                .addOnSuccessListener(requireActivity()) { location ->
+                    if (location != null) {
+                        val lat = LatLng(location.latitude, location.longitude)
+                        if (myLocation != null) {
+                            myLocation!!.remove()
+                        }
+                        myLocation = map!!.addMarker(MarkerOptions().position(lat).icon(
+                            BitmapDescriptorFactory.fromResource(R.drawable.marker_user)))
+                        map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 5f))
+                    }
+                }
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationClient!!.lastLocation
-            .addOnSuccessListener(requireActivity()) { location ->
-                if (location != null) {
-                val lat = LatLng(location.latitude, location.longitude)
-                if (myLocation != null) {
-                    myLocation!!.remove()
-                }
-                myLocation = map!!.addMarker(MarkerOptions().position(lat).icon(
-                    BitmapDescriptorFactory.fromResource(R.drawable.marker_user)))
-                    map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 5f))
-                }
-            }
+
 
     }
 
